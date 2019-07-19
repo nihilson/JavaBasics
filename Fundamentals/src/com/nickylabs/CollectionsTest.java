@@ -10,10 +10,13 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -253,6 +256,91 @@ public class CollectionsTest {
 		Collections.shuffle(list, new Random());
 		Assert.assertNotEquals("[One, Two, Three, Four, Five]", list.toString());
 		System.out.println(list);	
+		
+	}
+	
+	@Test
+	public void testListAlgorithms() {
+		
+		//1. Test the sort method
+		List<String> list = new ArrayList<String>();
+		list.add("10");
+		list.add("30");
+		list.add("20");
+		list.add("50");
+		list.add("40");
+		
+		// Sample Anonymous Class Creation.
+		Comparator<String> cmp = new Comparator<String>() {
+	        public int compare(String o1, String o2) {
+	            return Integer.valueOf(o1).compareTo(Integer.valueOf(o2));
+	        }
+	    };
+	    
+	    System.out.println(list.toString());
+		list.sort(cmp);
+	    //Collections.sort(list);
+		Assert.assertEquals("[10, 20, 30, 40, 50]", list.toString());
+		System.out.println(list.toString());
+		
+		//2. Test the reverse method
+		
+		Collections.reverse(list);
+		Assert.assertEquals("[50, 40, 30, 20, 10]", list.toString());
+		System.out.println(list.toString());
+		
+		// 3. Test the rotate method		
+		Collections.rotate(list, 3);
+		Assert.assertEquals("[30, 20, 10, 50, 40]", list.toString());
+		System.out.println(list.toString());
+		
+		// 4. Test the swap method
+		Collections.swap(list, 0, 4);
+		Assert.assertEquals("[40, 20, 10, 50, 30]", list.toString());
+		System.out.println(list.toString());
+		
+		//5. Test the binarySearch		
+		int pos = Collections.binarySearch(list, "50");
+		Assert.assertEquals(3, pos);
+		
+		//6. Test the frequency
+		list.add("50");
+		list.add("50");
+		int count = Collections.frequency(list, "50");
+		Assert.assertEquals(3, count);
+	}
+	
+	@Test
+	public void testQueueInterface() {
+		
+		// Create a queue and add 3 elements
+		Queue<String> queue = new LinkedList<String>();
+		queue.add("One");
+		queue.add("Two");
+		queue.add("Three");
+		
+		System.out.println(queue.toString());
+		
+		String head = queue.peek();
+		Assert.assertEquals("One", head);
+		
+		String remove = queue.poll();
+		Assert.assertEquals("One", remove);
+		Assert.assertEquals("[Two, Three]", queue.toString());
+		System.out.println(queue.toString());
+
+		// Validate that the Queue is not empty
+		boolean empty = queue.isEmpty();
+		Assert.assertFalse(empty);
+				
+		// isEmpty can be used for blocking and processing in a loop
+		while(!queue.isEmpty()) {
+			System.out.println(queue.poll());
+		}
+		
+		// Validate the queue is empty now.
+		Assert.assertTrue(queue.isEmpty());
+		System.out.println(queue);
 		
 	}
 }
