@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -153,16 +154,87 @@ public class CollectionsTest {
 	@Test
 	public void testSetImplPerformance() {
 		
-		HashSet<String> hashSet = new HashSet<String>();
-		for(int i=0;i<1000;i++) {
+		// Test the performance of these 3 different Set implementations
+		
+		Set<String> hashSet = new HashSet<String>();
+		Set<String> treeSet = new TreeSet<String>();
+		Set<String> linkedHashSet = new LinkedHashSet<String>();
+
+		Instant start = Instant.now();
+		
+		for(int i=0;i<100000;i++) {
 			hashSet.add("Nihilson-"+i);
 		}
 		
-		Instant start = Instant.now();
-		hashSet.contains("Nihilson500");
 		Instant end = Instant.now();
-		
 		long elapsedTime= Duration.between(start, end).toMillis();
-		System.out.println("Time taken :" + elapsedTime);
+		System.out.println("Time taken for HashSet.add() :" + elapsedTime + "ms");
+	
+		// ADD into TreeSet
+		start = Instant.now();
+		
+		for(int i=0;i<100000;i++) {
+			treeSet.add("Nihilson-"+i);
+		}
+		
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for TreeSet.add() :" + elapsedTime + "ms");
+		
+		// ADD to LinkedHashSet
+		start = Instant.now();
+		
+		for(int i=0;i<100000;i++) {
+			linkedHashSet.add("Nihilson-"+i);
+		}
+		
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for LinkedHashSet.add() :" + elapsedTime + "ms");
+		
+		
+		// Test Contains Method for HashSet		
+		start = Instant.now();		
+		hashSet.contains("Nihilson-55555");		
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for HashSet.contains() :" + elapsedTime + "ms");
+	
+		//  Test Contains Method for TreeSet
+		start = Instant.now();
+		treeSet.contains("Nihilson-55555");			
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for TreeSet.contains() :" + elapsedTime + "ms");
+		
+		// Test Contains Method for LinkedHashSet
+		start = Instant.now();
+		linkedHashSet.contains("Nihilson-55555");				
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for LinkedHashSet.contains() :" + elapsedTime + "ms");
+		
+		// Test Contains Method for HashSet		
+		start = Instant.now();		
+		hashSet.remove("Nihilson-55555");		
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for HashSet.remove() :" + elapsedTime + "ms");
+
+		//  Test Contains Method for TreeSet
+		start = Instant.now();
+		treeSet.remove("Nihilson-55555");			
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for TreeSet.remove() :" + elapsedTime + "ms");
+
+		// Test Contains Method for LinkedHashSet
+		start = Instant.now();
+		linkedHashSet.remove("Nihilson-55555");		
+		end = Instant.now();
+		elapsedTime= Duration.between(start, end).toMillis();
+		System.out.println("Time taken for LinkedHashSet.remove() :" + elapsedTime + "ms");		
+		
+		
 	}
 }
