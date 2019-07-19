@@ -9,9 +9,12 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -234,7 +237,22 @@ public class CollectionsTest {
 		end = Instant.now();
 		elapsedTime= Duration.between(start, end).toMillis();
 		System.out.println("Time taken for LinkedHashSet.remove() :" + elapsedTime + "ms");		
-		
+				
+	}
+	
+	@Test
+	public void testCollectionsShuffleMethod() {
+		List<String> list = new ArrayList<String>();
+		list.add("One");
+		list.add("Two");
+		list.add("Three");
+		list.add("Four");
+		list.add("Five");
+				
+		System.out.println(list.toString());
+		Collections.shuffle(list, new Random());
+		Assert.assertNotEquals("[One, Two, Three, Four, Five]", list.toString());
+		System.out.println(list);	
 		
 	}
 }
