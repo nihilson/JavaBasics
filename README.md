@@ -1,5 +1,5 @@
-# JavaBasics
-An attempt to learn and remember Java Programming by writing TestCases for Java APIs.
+# Learn Java By TestCases
+An attempt to learn and remember Java Programming concepts by writing TestCases for Java APIs.
 
 1. CollectionsTest
 2. ConcurrencyTest
