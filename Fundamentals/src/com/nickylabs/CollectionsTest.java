@@ -7,10 +7,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -340,7 +342,57 @@ public class CollectionsTest {
 		
 		// Validate the queue is empty now.
 		Assert.assertTrue(queue.isEmpty());
-		System.out.println(queue);
+		System.out.println(queue);		
+	}
+	
+	@Test
+	public void testDequeueInterface() {
 		
+		// Test the Insert, Examine and Remove operations on Deque 
+		// addFirst, addLast & offerFirst
+		// getFirst, getLast & peekFirst & peekLast
+		// removeFirst, removeLast & pollFirst & pollLast 
+
+		// Create a Deque with ArrayDeque implementation
+		Deque<String> deck1 = new ArrayDeque<String>();
+				
+		// addFirst() & addLast()
+		deck1.addFirst("One");
+		deck1.addFirst("Two");
+		deck1.addFirst("Three");
+		deck1.addLast("Zero");
+		
+		System.out.println(deck1.toString());
+		
+		//getFirst & getLast
+		Assert.assertEquals("Three",deck1.getFirst());
+		Assert.assertEquals("Zero",deck1.getLast());
+		
+		// removeFirst & removeLast
+		Assert.assertEquals("Three",deck1.removeFirst());
+		Assert.assertEquals("Zero",deck1.removeLast());
+		Assert.assertEquals("[Two, One]",deck1.toString());
+		System.out.println(deck1.toString());
+		
+		// Create Deque with LinkedList implementation
+		Deque<String> deck2 = new LinkedList<String>();
+		// offerFirst
+		deck2.offerFirst("One");
+		deck2.offerFirst("Two");
+		deck2.offerFirst("Three");
+		deck2.offerLast("Zero");
+		
+		System.out.println(deck2.toString());
+		
+		// peekFirst & peekLast		
+		Assert.assertEquals("Three",deck2.peekFirst());
+		Assert.assertEquals("Zero",deck2.peekLast());
+					
+		//pollFirst & pollLast
+		Assert.assertEquals("Three",deck2.pollFirst());
+		Assert.assertEquals("Zero",deck2.pollLast());
+		Assert.assertEquals("[Two, One]",deck1.toString());
+		System.out.println(deck2.toString());
+	
 	}
 }
