@@ -392,7 +392,6 @@ public class CollectionsTest {
 		Assert.assertEquals("Three",deck2.pollFirst());
 		Assert.assertEquals("Zero",deck2.pollLast());
 		Assert.assertEquals("[Two, One]",deck1.toString());
-		System.out.println(deck2.toString());
-	
+		System.out.println(deck2.toString());	
 	}
 }
